@@ -1,0 +1,58 @@
+
+https://www.youtube.com/watch?v=fN25fMQZ2v0&t=1s
+
+NodeJS 18.16.0 npm 9.8.1
+
+Створюємо проект JWT-AUTH
+
+npx create-react-app client --template typescript
+
+cd server
+npm init -y
+
+npm i express cors cookie-parser
+(
+сors - щоб видправляти запити з браузера
+)
+
+npm i nodemon --save-dev 
+
+Прописуємо в скрипт:
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+
+npm run dev - запуск сервера
+
+npm i dotenv - модуль для конфігураціі 
+
+Файл .env в корні папки - будуть зберігатися змінні оточення
+require('dotenv').config(); -об'ява модуля
+const PORT = process.env.PORT || 5000; -визов
+
+--------------- MongoDB ------------
+npm i mongodb mongoose 
+
+https://cloud.mongodb.com/v2/6510323d8bccc8557f65a445#/setup/access?includeToast=true
+admin Hesed852
+root root
+
+mongodb+srv://<username>:<password>@cluster0.lhieyne.mongodb.net/?retryWrites=true&w=majority
+ 
+Це прописуєм в .env DB_URL і міняємо username на root і пароль
+_________________
+
+Создаєм папки : 
+models - опісиваем схему данних
+service -
+controllers -
+router -  реализуємо навігацію
+
+---- models ----
+User-model.js
+Token-model.js
+
+В роутере сделалі спісок некоторих адрессов і для каждого адреса нужно создать функцію, которая по запросу на єтот адрес будет отрабативать (в папке контроллери)
+
+
+
