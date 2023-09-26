@@ -60,3 +60,10 @@ user-service - добавление пользователя, поиск, ред
 npm i jsonwebtoken bcrypt uuid
 uuid - генерация рандомных строк
 
+.env
+PORT=5000
+DB_URL=mongodb+srv://root:root@cluster0.lhieyne.mongodb.net/?retryWrites=true&w=majority
+JWT_ACCESS_SECRET=jwt-key-secret-qwerty
+JWT_REFRESH_SECRET=jwt-key-secret-qwerty-refresh
+
+dtos папка в ней файл dto.js - в нем класс который будет обладать некоторыми полями которые мы будем отправлять на клиента
