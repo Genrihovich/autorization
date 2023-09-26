@@ -19,7 +19,7 @@ class UserService {
         //генерим ссылку для активации пользователя
         const activationLink = uuid.v4();
 
-        const user = await UserModel.create({ email, password: hashPassword, activationLink });
+        const user = await UserModel.create({ email, password: hashPassword, activationLink});
         // после создания пользователя отправляем ему сообщение
         await mailService.sendActivationMail(email, activationLink);
 
