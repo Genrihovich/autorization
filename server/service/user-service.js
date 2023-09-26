@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const mailService = require('./mail-service');
 const tokenService = require('./token-service');
-const userDto = require('../dtos/user-dto');
+const UserDto = require('../dtos/user-dto');
 
 class UserService {
     async register(email, password) {
@@ -24,7 +24,7 @@ class UserService {
         await mailService.sendActivationMail(email, activationLink);
 
         //на основании модели создаем дто - чтоб выкинуть не нужные поля, как параметр передаем модель
-        const userDto = new userDto(user); // id, email, isActivated
+        const userDto = new UserDto(user); // id, email, isActivated
 
         //генерим токены и помещаем их в обьект
         const tokens = tokenService.generateTokens({ ...userDto });

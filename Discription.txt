@@ -67,3 +67,5 @@ JWT_ACCESS_SECRET=jwt-key-secret-qwerty
 JWT_REFRESH_SECRET=jwt-key-secret-qwerty-refresh
 
 dtos папка в ней файл dto.js - в нем класс который будет обладать некоторыми полями которые мы будем отправлять на клиента
+
+Postman, MongoDBCompass
