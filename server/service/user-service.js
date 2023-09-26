@@ -20,8 +20,8 @@ class UserService {
         const activationLink = uuid.v4();
 
         const user = await UserModel.create({ email, password: hashPassword, activationLink});
-        // после создания пользователя отправляем ему сообщение
-        await mailService.sendActivationMail(email, activationLink);
+        // после создания пользователя отправляем ему сообщение на почту
+        await mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
 
         //на основании модели создаем дто - чтоб выкинуть не нужные поля, как параметр передаем модель
         const userDto = new UserDto(user); // id, email, isActivated
