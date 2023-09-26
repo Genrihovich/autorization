@@ -11,7 +11,7 @@ class UserController {
             //эта ф-ция возвращает токены и инфу пользователя
 
             //сохраняем в куки токен рефреш (httpOnly: true - чтобы нельзя было получать и изменять куку внутри браузера)
-            res.coockie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+            res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
 
             return res.json(userData);
         } catch (e) {
