@@ -70,9 +70,12 @@ SMTP_PORT=2525
 SMTP_USER=admin@hesedbesht.org.ua
 SMTP_PASSWORD=zv238kcu
 API_URL=http://localhost:5000
+CLIENT_URL=http://localhost:3000
 
 dtos папка в ней файл dto.js - в нем класс который будет обладать некоторыми полями которые мы будем отправлять на клиента
 
 Postman, MongoDBCompass
 
 npm i nodemailer - почтовый пакет
+
+папка exeptions - для обработки ошибок
