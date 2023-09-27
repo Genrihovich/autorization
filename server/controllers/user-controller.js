@@ -1,9 +1,17 @@
 const userService = require('../service/user-service');
+const { validationResult } = require('express-validator');
+const ApiError = require('../exeptions/api-error');
 
 class UserController {
 
     async registration(req, res, next) {
         try {
+            //валидация req
+            const errors = validationResult(req);
+            //Проверяем находиться ли что-то в errors, если не пусто то есть ошибка
+            if (!errors.isEmpty()) {
+                return next(ApiError.BadRequest('Ошибка при валидации', errors.array()));
+            }
             //вытаскиваем из тела запроса мыло и пароль
             const { email, password } = req.body;
             // передаем данные в ф-цию регистрации внутри сервиса который мы реализовали
@@ -15,34 +23,46 @@ class UserController {
 
             return res.json(userData);
         } catch (e) {
-            console.log(e);
+            //  console.log(e);
+            next(e);//вызывая некс с ошибкой мы попадаем в мидлваре который организовали для ошибки
         }
     }
 
     async login(req, res, next) {
         try {
-        } catch (e) { }
+        } catch (e) { next(e); }
     }
 
     async logout(req, res, next) {
         try {
-        } catch (e) { }
+        } catch (e) { next(e); }
     }
 
     async activate(req, res, next) {
         try {
-        } catch (e) { }
+            //получаем из строки запроса ссылку активации
+            const activationLink = req.params.link; //'/activate/:link'
+
+            //console.log(activationLink);
+
+            await userService.activate(activationLink);
+            //После того как пользователь перешел по ссылке его надо редиректнуть на фронтенд
+            return res.redirect(process.env.CLIENT_URL);
+        } catch (e) {
+            //  console.log(e);
+            next(e);
+        }
     }
 
     async refresh(req, res, next) {
         try {
-        } catch (e) { }
+        } catch (e) { next(e); }
     }
 
     async getUsers(req, res, next) {
         try {
             res.json(["1234", "4321"]);
-        } catch (e) { }
+        } catch (e) { next(e); }
     }
 
 }
