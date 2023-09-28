@@ -84,6 +84,31 @@ class UserService {
         return token;
     }
 
+    async refresh(refreshToken) {
+        //проверяем, если на пришел null или undefine то пробрасываем ошибку
+        if (!refreshToken) {
+            throw ApiError.UnAuthorizedError();
+        }
+        //пытаемся провалидировать токен
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        // надо убедиться что этот токен находится в БД
+        const tokenFromDb = await tokenService.findToken(refreshToken);
+        //делаем проверку что и валидация и поиск в БД прошли успешно, если нет то пользователь не авторизован
+        if (!userData || !tokenFromDb) {
+            throw ApiError.UnAuthorizedError();
+        }
+        // если все норм то:
+        const user = await userModel.findById(userData.id);
+        // Генерируем Dto из модели выбрасываем все не нужное
+        const userDto = new UserDto(user);
+        //Генерим пару токенов
+        const tokens = tokenService.generateTokens({ ...userDto });
+        //сохраняем рефрештокен в базу данных
+        await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+        return { ...tokens, user: userDto }
+    }
+
 }
 
 module.exports = new UserService();

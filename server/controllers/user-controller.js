@@ -65,6 +65,7 @@ class UserController {
             await userService.activate(activationLink);
             //После того как пользователь перешел по ссылке его надо редиректнуть на фронтенд
             return res.redirect(process.env.CLIENT_URL);
+
         } catch (e) {
             //  console.log(e);
             next(e);
@@ -73,6 +74,15 @@ class UserController {
 
     async refresh(req, res, next) {
         try {
+            //вытаскиваем из куки рефреш токен
+            const { refreshToken } = req.cookies;
+
+            const userData = await userService.refresh(refreshToken);
+            //сохраняем рефреш токен в куки
+            res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+
+            return res.json(userData);
+
         } catch (e) { next(e); }
     }
 
