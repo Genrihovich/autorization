@@ -78,6 +78,12 @@ class UserService {
         return { ...tokens, user: userDto }
     }
 
+    async logout(refreshToken) {
+        //удалить рефрештокен из БД
+        const token = tokenService.removeToken(refreshToken);
+        return token;
+    }
+
 }
 
 module.exports = new UserService();

@@ -44,6 +44,14 @@ class UserController {
 
     async logout(req, res, next) {
         try {
+            //вытаскиваем из куки рефреш токен
+            const { refreshToken } = req.cookies;
+            //вызываем из сервиса ф-цию и передаем рефр токен
+            const token = userService.logout(refreshToken);
+            //удаляем саму куку с рефештокеном
+            res.clearCookie('refreshToken');
+            //после всего возвращаем ответ на клиент
+            return res.json(token);
         } catch (e) { next(e); }
     }
 
